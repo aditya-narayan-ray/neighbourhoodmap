@@ -1,15 +1,5 @@
 var styles = [
-    {
-        "featureType": "water",
-        "stylers": [
-            {
-                "visibility": "on"
-            },
-            {
-                "color": "#b5cbe4"
-            }
-        ]
-    },
+    
     {
         "featureType": "landscape",
         "stylers": [
@@ -24,6 +14,17 @@ var styles = [
         "stylers": [
             {
                 "color": "#83a5b0"
+            }
+        ]
+    },
+    {
+        "featureType": "water",
+        "stylers": [
+            {
+                "visibility": "on"
+            },
+            {
+                "color": "#b5cbe4"
             }
         ]
     },
@@ -55,6 +56,18 @@ var styles = [
         ]
     },
     {
+        "featureType": "poi.park",
+        "elementType": "labels",
+        "stylers": [
+            {
+                "visibility": "on"
+            },
+            {
+                "lightness": 20
+            }
+        ]
+    },
+    {
         "featureType": "administrative",
         "stylers": [
             {
@@ -68,18 +81,7 @@ var styles = [
     {
         "featureType": "road"
     },
-    {
-        "featureType": "poi.park",
-        "elementType": "labels",
-        "stylers": [
-            {
-                "visibility": "on"
-            },
-            {
-                "lightness": 20
-            }
-        ]
-    },
+    
     {
         "featureType": "road",
         "stylers": [

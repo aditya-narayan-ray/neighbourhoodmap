@@ -1,31 +1,25 @@
 .app_title {
-    padding: 15px 5px 10px 5px;
+    padding: 16px 6px 11px 6px;
 }
 
-.sidebar_width {
-    min-width: 300px;
-}
-
-.sidebar_hr {
-    margin-top: 1rem;
-    margin-bottom: 1rem;
-    border: 0;
-    border-top: 1px solid rgba(255,255,255,1);
-}
 
 .location_list {
-    padding: 3px 5px 5px 5px;
+    padding: 2px 4px 4px 4px;
 }
 
 .foursquare {
     position: absolute;
-    bottom: 2px;
-    width: 60%;
+    bottom: 3px;
+    width: 58%;
     right: 0;
 }
 
 .iw_title {
-    font-size: 1.3em;
+    font-size: 1.2em;
+}
+.iw_address {
+    margin-bottom: 0;
+    font-size: .92em;
 }
 
 .iw_subtitle {
@@ -34,13 +28,17 @@
 
 .iw_address_title {
     margin-bottom: 2px;
-    font-size: .95em;
+    font-size: .96em;
+}
+@media (max-width: 767px) {
+    .search {
+        font-size: .7em;
+        margin-top: 4px;
+    }
 }
 
-.iw_address {
-    margin-bottom: 0;
-    font-size: .9em;
-}
+
+
 
 .padding-zero {
     padding: 0 0 0 0;
@@ -55,17 +53,15 @@
     font-size: .9em;
 }
 
-@media (max-width: 768px) {
-    .search {
-        font-size: .7em;
-        margin-top: 5px;
-    }
+
+.sidebar_width {
+    min-width: 300px;
 }
 
 .map_error {
     color: white;
     position: absolute;
-    top: 50%;
+    top: 51%;
     width: 100%;
     text-align: center;
 }
