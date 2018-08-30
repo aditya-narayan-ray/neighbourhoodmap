@@ -18,12 +18,6 @@ var myLocations = [
         type:  'Bank'
     },
     {
-        title: 'Indian Government Mint',
-        lat: 22.516047,
-        lng: 88.321898,
-        type:  'Manufacture'
-    },
-    {
         title: 'Rabindra Sarovar Metro Station',
         lat: 22.505754,
         lng: 88.345013,

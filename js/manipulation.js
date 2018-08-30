@@ -1,12 +1,12 @@
 $(document).ready(function() {
-  function setHeight() {
+  function height() {
     windowHeight = $(window).innerHeight();
     $('#map').css('min-height', windowHeight);
     $('#sidebar').css('min-height', windowHeight);
   };
-  setHeight();
+  height();
 
   $(window).resize(function() {
-    setHeight();
+    height();
   });
 });

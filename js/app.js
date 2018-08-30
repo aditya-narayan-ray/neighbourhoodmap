@@ -1,59 +1,56 @@
 // Global Variables
-var map, clientID, clientSecret;
+var Gmap, apiID, apiSecret;
 
-function AppViewModel() {
+function AVM() {
     var self = this;
 
     this.searchOption = ko.observable("");
-    this.markers = [];
+    this.pins = [];
 
-    // This function populates the infowindow when the marker is clicked. We'll only allow
-    // one infowindow which will open at the marker that is clicked, and populate based
-    // on that markers position.
-    this.populateInfoWindow = function(marker, infowindow) {
-        if (infowindow.marker != marker) {
+    // Function to populate info when pin is clicked
+    this.popWin = function(pin, infowindow) {
+        if (infowindow.marker != pin) {
             infowindow.setContent('');
-            infowindow.marker = marker;
-            // Foursquare API Client
-            clientID = "2G4BOAVMDDTBVKZOU0WI0IBXSQOCMDTIOWZCKXS4XO1RAC0R";
-            clientSecret =
+            infowindow.marker = pin;
+            // FS client
+            apiID = "2G4BOAVMDDTBVKZOU0WI0IBXSQOCMDTIOWZCKXS4XO1RAC0R";
+            apiSecret =
                 "3UZMRJ1XEB1WDHZROFUCCIGDJCFMWPVRG5J4FFDWVDNHEV4K";
-            // URL for Foursquare API
-            var apiUrl = 'https://api.foursquare.com/v2/venues/search?ll=' +
-                marker.lat + ',' + marker.lng + '&client_id=' + clientID +
-                '&client_secret=' + clientSecret + '&query=' + marker.title +
+            // FS address
+            var framework = 'https://api.foursquare.com/v2/venues/search?ll=' +
+                pin.lat + ',' + pin.lng + '&client_id=' + apiID +
+                '&client_secret=' + apiSecret + '&query=' + pin.title +
                 '&v=20170708' + '&m=foursquare';
-            // Foursquare API
-            $.getJSON(apiUrl).done(function(marker) {
-                var response = marker.response.venues[0];
-                self.street = response.location.formattedAddress[0];
-                self.city = response.location.formattedAddress[1];
-                self.zip = response.location.formattedAddress[3];
+            // FS framework
+            $.getJSON(framework).done(function(pin) {
+                var response = pin.response.venues[0];
+                self.road = response.location.formattedAddress[0];
+                self.urbanarea = response.location.formattedAddress[1];
+                self.pincode = response.location.formattedAddress[3];
                 self.country = response.location.formattedAddress[4];
                 self.category = response.categories[0].shortName;
 
-                self.htmlContentFoursquare =
+                self.htmlFS =
                     '<h5 class="iw_subtitle">(' + self.category +
                     ')</h5>' + '<div>' +
                     '<h6 class="iw_address_title"> Address: </h6>' +
-                    '<p class="iw_address">' + self.street + '</p>' +
-                    '<p class="iw_address">' + self.city + '</p>' +
-                    '<p class="iw_address">' + self.zip + '</p>' +
+                    '<p class="iw_address">' + self.road + '</p>' +
+                    '<p class="iw_address">' + self.urbanarea + '</p>' +
+                    '<p class="iw_address">' + self.pincode + '</p>' +
                     '<p class="iw_address">' + self.country +
                     '</p>' + '</div>' + '</div>';
 
-                infowindow.setContent(self.htmlContent + self.htmlContentFoursquare);
+                infowindow.setContent(self.htmlContent + self.htmlFS);
             }).fail(function() {
-                // Send alert
                 alert(
                     "There was an issue loading the Foursquare API. Please refresh your page to try again."
                 );
             });
 
-            this.htmlContent = '<div>' + '<h4 class="iw_title">' + marker.title +
+            this.htmlContent = '<div>' + '<h4 class="iw_title">' + pin.title +
                 '</h4>';
 
-            infowindow.open(map, marker);
+            infowindow.open(Gmap, pin);
 
             infowindow.addListener('closeclick', function() {
                 infowindow.marker = null;
@@ -61,63 +58,63 @@ function AppViewModel() {
         }
     };
 
-    this.populateAndBounceMarker = function() {
-        self.populateInfoWindow(this, self.largeInfoWindow);
+    this.popPin = function() {
+        self.popWin(this, self.largeInfoWindow);
         this.setAnimation(google.maps.Animation.BOUNCE);
         setTimeout((function() {
             this.setAnimation(null);
         }).bind(this), 1400);
     };
 
-    this.initMap = function() {
-        var mapCanvas = document.getElementById('map');
-        var mapOptions = {
-            center: new google.maps.LatLng(22.5087686,88.3225252),
-            zoom: 15,
+    this.initiate = function() {
+        var GmapCanvas = document.getElementById('map');
+        var GmapOptions = {
+            center: new google.maps.LatLng(22.507368, 88.337026),
+            zoom: 16,
             styles: styles
         };
-        // Constructor creates a new map - only center and zoom are required.
-        map = new google.maps.Map(mapCanvas, mapOptions);
+        // Creating a new map with center and zoom
+        Gmap = new google.maps.Map(GmapCanvas, GmapOptions);
 
         // Set InfoWindow
         this.largeInfoWindow = new google.maps.InfoWindow();
         for (var i = 0; i < myLocations.length; i++) {
-            this.markerTitle = myLocations[i].title;
-            this.markerLat = myLocations[i].lat;
-            this.markerLng = myLocations[i].lng;
-            // Google Maps marker setup
+            this.pinName = myLocations[i].title;
+            this.pinLatitude = myLocations[i].lat;
+            this.pinLongitude = myLocations[i].lng;
+            // pins
             this.marker = new google.maps.Marker({
-                map: map,
+                map: Gmap,
                 position: {
-                    lat: this.markerLat,
-                    lng: this.markerLng
+                    lat: this.pinLatitude,
+                    lng: this.pinLongitude
                 },
-                title: this.markerTitle,
-                lat: this.markerLat,
-                lng: this.markerLng,
+                title: this.pinName,
+                lat: this.pinLatitude,
+                lng: this.pinLongitude,
                 id: i,
                 animation: google.maps.Animation.DROP
             });
-            this.marker.setMap(map);
-            this.markers.push(this.marker);
-            this.marker.addListener('click', self.populateAndBounceMarker);
+            this.marker.setMap(Gmap);
+            this.pins.push(this.marker);
+            this.marker.addListener('click', self.popPin);
         }
     };
 
-    this.initMap();
+    this.initiate();
 
     // This block appends our locations to a list using data-bind
     // It also serves to make the filter work
     this.myLocationsFilter = ko.computed(function() {
         var result = [];
-        for (var i = 0; i < this.markers.length; i++) {
-            var markerLocation = this.markers[i];
+        for (var i = 0; i < this.pins.length; i++) {
+            var markerLocation = this.pins[i];
             if (markerLocation.title.toLowerCase().includes(this.searchOption()
                     .toLowerCase())) {
                 result.push(markerLocation);
-                this.markers[i].setVisible(true);
+                this.pins[i].setVisible(true);
             } else {
-                this.markers[i].setVisible(false);
+                this.pins[i].setVisible(false);
             }
         }
         return result;
@@ -131,5 +128,5 @@ googleError = function googleError() {
 };
 
 function startApp() {
-    ko.applyBindings(new AppViewModel());
+    ko.applyBindings(new AVM());
 }
