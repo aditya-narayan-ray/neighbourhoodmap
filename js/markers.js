@@ -6,12 +6,6 @@ var myLocations = [
         type: 'Transit'
     },
     {
-        title: 'Birsa Munda Triangular Park',
-        lat: 22.512849, 
-        lng: 88.328381,
-        type: 'Public Place'
-    },
-    {
         title: 'Central Bank of India',
         lat: 22.508834, 
         lng: 88.337007,
@@ -24,9 +18,9 @@ var myLocations = [
         type: 'Transit'
     },
     {
-        title: 'World Class RSV Hospital',
-        lat: 22.503653,
-        lng: 88.344626,
-        type: 'Health Care'
+        title: 'Indian Government Mint',
+        lat: 22.516301, 
+        lng: 88.321839,
+        type: 'Coin Manufacture'
     }
 ]

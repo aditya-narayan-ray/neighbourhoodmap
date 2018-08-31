@@ -24,10 +24,10 @@ function AVM() {
             // FS framework
             $.getJSON(framework).done(function(pin) {
                 var response = pin.response.venues[0];
-                self.road = response.location.formattedAddress[0];
+                self.road =response.location.formattedAddress[0];
                 self.urbanarea = response.location.formattedAddress[1];
-                self.pincode = response.location.formattedAddress[3];
-                self.country = response.location.formattedAddress[4];
+                self.state = response.location.formattedAddress[2];
+                self.country = response.location.formattedAddress[3];
                 self.category = response.categories[0].shortName;
 
                 self.htmlFS =
@@ -36,9 +36,9 @@ function AVM() {
                     '<h6 class="iw_address_title"> Address: </h6>' +
                     '<p class="iw_address">' + self.road + '</p>' +
                     '<p class="iw_address">' + self.urbanarea + '</p>' +
-                    '<p class="iw_address">' + self.pincode + '</p>' +
+                    '<p class="iw_address">' + self.state + '</p>' +
                     '<p class="iw_address">' + self.country +
-                    '</p>' + '</div>' + '</div>';
+                    '</p>' + '</div>'+ '</div>';
 
                 infowindow.setContent(self.htmlContent + self.htmlFS);
             }).fail(function() {
@@ -70,7 +70,7 @@ function AVM() {
         var GmapCanvas = document.getElementById('map');
         var GmapOptions = {
             center: new google.maps.LatLng(22.507368, 88.337026),
-            zoom: 16,
+            zoom: 14,
             styles: styles
         };
         // Creating a new map with center and zoom

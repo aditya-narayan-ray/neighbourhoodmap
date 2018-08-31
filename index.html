@@ -38,7 +38,7 @@
                 <!-- Search Input -->
                 <input class="search" data-bind="textInput: searchOption, valueUpdate: 'afterkeydown'" placeholder="Search Locations...">
                 <ul class="nav flex-column" data-bind="foreach: myLocationsFilter">
-                    <a href="#"><li class="nav-item text-white location_list" data-bind="text: title, click: $parent.populateAndBounceMarker"></li></a>
+                    <a href="#"><li class="nav-item text-white location_list" data-bind="text: title, click: $parent.popPin"></li></a>
                 </ul>
                 <img class="foursquare" src="img/foursquare_attr.png" srcset="img/foursquare_attr@2x.png" alt="Powered By Foursquare!">
             </nav>
